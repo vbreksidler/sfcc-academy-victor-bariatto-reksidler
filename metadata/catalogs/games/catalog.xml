@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.demandware.com/xml/impex/catalog/2006-10-31" catalog-id="games">
+    <header>
+        <image-settings>
+            <internal-location base-path="/"/>
+            <view-types>
+                <view-type>large</view-type>
+                <view-type>medium</view-type>
+                <view-type>small</view-type>
+                <view-type>swatch</view-type>
+            </view-types>
+            <alt-pattern>${productname}</alt-pattern>
+            <title-pattern>${productname}</title-pattern>
+        </image-settings>
+    </header>
+
+    <category category-id="root">
+        <online-flag>true</online-flag>
+        <template/>
+        <page-attributes/>
+    </category>
+
+    <category category-id="PC">
+        <online-flag>true</online-flag>
+        <parent>root</parent>
+        <template/>
+        <page-attributes/>
+    </category>
+
+    <category category-id="Online Games">
+        <online-flag>true</online-flag>
+        <parent>PC</parent>
+        <template/>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="enableCompare">false</custom-attribute>
+            <custom-attribute attribute-id="showInMenu">true</custom-attribute>
+        </custom-attributes>
+    </category>
+
+    <product product-id="counter strike 2">
+        <ean/>
+        <upc/>
+        <unit/>
+        <min-order-quantity>1</min-order-quantity>
+        <step-quantity>1</step-quantity>
+        <store-force-price-flag>false</store-force-price-flag>
+        <store-non-inventory-flag>false</store-non-inventory-flag>
+        <store-non-revenue-flag>false</store-non-revenue-flag>
+        <store-non-discountable-flag>false</store-non-discountable-flag>
+        <online-flag>true</online-flag>
+        <available-flag>false</available-flag>
+        <searchable-flag>true</searchable-flag>
+        <page-attributes/>
+        <variations>
+            <attributes>
+                <variation-attribute attribute-id="gameRating" variation-attribute-id="CS2 DLC"/>
+            </attributes>
+        </variations>
+        <classification-category>Online Games</classification-category>
+        <pinterest-enabled-flag>false</pinterest-enabled-flag>
+        <facebook-enabled-flag>false</facebook-enabled-flag>
+        <store-attributes>
+            <force-price-flag>false</force-price-flag>
+            <non-inventory-flag>false</non-inventory-flag>
+            <non-revenue-flag>false</non-revenue-flag>
+            <non-discountable-flag>false</non-discountable-flag>
+        </store-attributes>
+    </product>
+
+    <category-assignment category-id="Online Games" product-id="008884303989M"/>
+
+    <category-assignment category-id="Online Games" product-id="008884303996M"/>
+
+    <category-assignment category-id="Online Games" product-id="008884304009M"/>
+
+    <category-assignment category-id="Online Games" product-id="counter strike 2">
+        <primary-flag>true</primary-flag>
+    </category-assignment>
+
+    <category-assignment category-id="root" product-id="008884303989M">
+        <primary-flag>true</primary-flag>
+    </category-assignment>
+
+    <category-assignment category-id="root" product-id="008884303996M">
+        <primary-flag>true</primary-flag>
+    </category-assignment>
+
+    <category-assignment category-id="root" product-id="008884304009M">
+        <primary-flag>true</primary-flag>
+    </category-assignment>
+
+</catalog>
