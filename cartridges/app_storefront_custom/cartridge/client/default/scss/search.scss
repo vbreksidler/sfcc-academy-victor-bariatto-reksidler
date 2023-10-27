@@ -5,6 +5,10 @@
 @import "utilities/swatch";
 @import "components/categoryTiles";
 
+.noResults {
+    padding: 50%;
+}
+
 .refinement-bar {
     overflow: auto;
 
@@ -62,6 +66,7 @@
 }
 
 .refinements {
+
     .header,
     .values {
         padding: 0.313em 0;
@@ -209,7 +214,7 @@
             display: block;
         }
 
-        > ul > li {
+        >ul>li {
             margin-left: 0;
         }
     }

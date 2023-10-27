@@ -7,5 +7,3 @@
 
     <isinclude template="search/searchResultsNoDecorator" />
 </isdecorate>
-
-<isslot id="header_banner" description="…" context="global" />
