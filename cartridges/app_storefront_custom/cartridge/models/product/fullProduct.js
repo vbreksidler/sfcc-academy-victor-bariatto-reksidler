@@ -46,7 +46,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     }
 
     if (category) {
-        decorators.sizeChart(product, category.custom.sizeChartID);
+        decorators.sizeChart(product, category.custom.sizeChartID)
+        decorators.categoryRecommendation(product, category.products);
     }
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
