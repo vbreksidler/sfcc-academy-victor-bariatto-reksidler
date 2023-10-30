@@ -1,18 +1,7 @@
-<iscomment>
-    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
-        <isinclude template="search/productGrid" />
+<isloop items="${product.recommendedProducts.collection}" var="product">
+    <div class="col-6 col-sm-4">
+        <isobject object="${product.recommendedProducts.collection}" view="searchhit">
+            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'swatches', true, 'ratings', true)}" />
+        </isobject>
     </div>
-</iscomment>
-
-<iscomment>
-    <isloop items="${pdict.productSearch.productIds}" var="product">
-        <div class="col-6 col-sm-4">
-            <isobject object="${product.productSearchHit}" view="searchhit">
-                <isinclude
-                    url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true)}" />
-            </isobject>
-        </div>
-    </isloop>
-</iscomment>
-
-${product.recommendedProducts.collection.length}
+</isloop>
