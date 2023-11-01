@@ -32,6 +32,7 @@ server.post('AddProduct', function (req, res, next) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var currentBasketPrice = currentBasket.merchandizeTotalNetPrice;
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var productId = req.form.pid;
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
@@ -115,23 +116,85 @@ server.post('AddProduct', function (req, res, next) {
         var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
     }
     // add product email
-    var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
-    var email = 'vbreksidler@gmail.com';
-    var url = URLUtils.https('Login-Show');
-    var objectForEmail = {
-        firstName: 'Victor',
-        lastName: 'Bariatto Reksidler',
-        url: url
-    };
+    server.append('AddProduct', function (req, res, next) {
+        var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
+        var viewData = res.getViewData();
 
-    var emailObj = {
-        to: email,
-        subject: Resource.msg('subject.profile.resetpassword.email', 'login', null),
-        from: 'no-reply@salesforce.com',
-        type: emailHelpers.emailTypes.productAdded
-    };
+        var productName = viewData.cart.items[0].productName;
+        var productId = viewData.cart.items[0].id;
+        // var customerInfo = req.currentCustomer.profile;
+        var email = 'vbreksidler@gmail.com';
+        var currencyCode = viewData.cart.items[0].price.sales.currency;
+        var totalPrice = viewData.cart.items[0].priceTotal.price;
+        var price = viewData.cart.items[0].price.sales.formatted;
+        var quantity = viewData.cart.numItems.toFixed(0);
+        var image = viewData.cart.items[0].images.small[0].absURL;
 
-    emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
+        var url = URLUtils.https('Cart-Show');
+        var objectForEmail = {
+            productName,
+            price,
+            image,
+            // firstName: customerInfo.firstName,
+            // lastName: customerInfo.lastName,
+            productId,
+            quantity,
+            url: url
+        };
+
+        var emailObj = {
+            to: email,
+            subject: Resource.msg('subject.confimation.email', 'cart', null),
+            from: 'no-reply@salesforce.com',
+            type: emailHelpers.emailTypes.productAdded
+        };
+
+        emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
+
+        res.json({
+            productName: productName,
+            productId: productId,
+            email: email,
+            currencyCode: currencyCode,
+            totalPrice: totalPrice,
+            price: price,
+            url: url,
+            objectForEmail: objectForEmail,
+            emailObj: emailObj
+        });
+
+        res.setViewData(viewData);
+        next();
+    })
+    // var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
+
+    // var productName = getCurrentOrNewBasket.allLineItems[0].productName;
+    // var customerInfo = req.currentCustomer.profile;
+    // var email = customerInfo.email;
+    // var quantity = quantity.toFixed(0);
+    // var currencyCode = currentBasket.currencyCode;
+    // var totalPrice = currentBasket.adjustedMerchandizeTotalNetPrice.value - currentBasketPrice.value;
+    // var price = currencyCode + ' ' + (totalPrice / quantity).toFixed(2)
+
+    // var url = URLUtils.https('Cart-Show');
+    // var objectForEmail = {
+    //     totalPrice,
+    //     price,
+    //     firstName: customerInfo.firstName,
+    //     lastName: customerInfo.lastName,
+    //     productId,
+    //     quantity,
+    //     url: url
+    // };
+
+    // var emailObj = {
+    //     to: email,
+    //     subject: Resource.msg('subject.confimation.email', 'cart', null),
+    //     from: 'no-reply@salesforce.com',
+    //     type: emailHelpers.emailTypes.productAdded
+    // };
+
+    // emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
 
     res.json({
         reportingURL: reportingURL,
