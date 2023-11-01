@@ -191,7 +191,6 @@ server.get('Get', function (req, res, next) {
     var CartModel = require('*/cartridge/models/cart');
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-    // var sendEmail = require('*/cartridge/scripts/helpers/emailHelpers')
     var currentBasket = BasketMgr.getCurrentBasket();
 
     if (currentBasket) {
