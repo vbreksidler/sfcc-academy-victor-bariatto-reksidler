@@ -68,6 +68,11 @@
                         </isif>
                     </isloop>
                     <isinclude template="cart/cartApproachingDiscount" />
+                    <div class="text-left">
+                        <isif condition="${pdict.totals.grandTotal.slice('1') > 200}">
+                         <isinclude template="cart/cartExceed" />
+                        </isif>
+                    </div>
                     <isif condition="${pdict.notes.length == 0 && pdict.items.length > 0}">
                         <h1 class="font-weight-bold font-size-18 text-center">${Resource.msg('info.cart.user.nonotes', 'cart', null)}
                         </h1>

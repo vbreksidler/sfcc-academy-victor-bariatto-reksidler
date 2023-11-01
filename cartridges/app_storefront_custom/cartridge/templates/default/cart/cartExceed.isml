@@ -1,0 +1,3 @@
+<div class="exceedsTotal">
+    ${Resource.msg('label.alert.exceeds', 'cart', null)}
+</div>
