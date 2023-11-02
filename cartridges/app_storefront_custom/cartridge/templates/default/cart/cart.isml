@@ -69,14 +69,13 @@
                     </isloop>
                     <isinclude template="cart/cartApproachingDiscount" />
                         <div class="text-left">
-                             <isif condition="${pdict.totalGrossPrice > pdict.rateLimiter}">
+                            <isif condition="${pdict.totalGrossPrice > pdict.rateLimiter}">
                             <isinclude template="cart/cartExceed" />
                         </isif>
                         </div>
                         <isif condition="${pdict.notes.length == 0 && pdict.items.length > 0}">
-                            <h1 class="font-weight-bold font-size-18 text-center">${Resource.msg('info.cart.user.nonotes', 'cart', null)}
-                            </h1>
-                         </isif>
+                            <h1 class="font-weight-bold font-size-18 text-center">${Resource.msg('info.cart.user.nonotes', 'cart', null)}</h1>
+                        </isif>
                 </div>
                 <!---totals, and checkout actions--->
                 <div class="col-sm-5 col-md-4 totals">
