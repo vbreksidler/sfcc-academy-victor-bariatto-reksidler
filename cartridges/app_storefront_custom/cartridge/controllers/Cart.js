@@ -163,13 +163,10 @@ server.get(
         var rateLimiter = dw.system.Site.getCurrent().getPreferences().custom.rateLimiterThreshold;
         var totalGrossPrice = currentBasket.totalGrossPrice.value;
 
-
-
         res.setViewData({ 
             reportingURLs: reportingURLs,
             rateLimiter,
             totalGrossPrice
-            
          });
 
         var basketModel = new CartModel(currentBasket);
