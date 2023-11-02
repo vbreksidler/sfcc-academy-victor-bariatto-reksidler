@@ -1,7 +1,0 @@
-<isloop items="${product.recommendedProducts.collection}" var="product" begin="0" end="3">
-    <div class="col-sm-3">
-        <isobject object="${product.recommendedProducts.collection}" view="searchhit">
-            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'swatches', true, 'ratings', true)}" />
-        </isobject>
-    </div>
-</isloop>

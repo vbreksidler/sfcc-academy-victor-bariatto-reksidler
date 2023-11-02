@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function (object, products) {
-    Object.defineProperty(object, 'recommendedProducts', {
+module.exports = function (object, ID) {
+    Object.defineProperty(object, 'categoryID', {
         enumerable: true,
         value: {
-            collection: products
+            ID
         }
     });
 };

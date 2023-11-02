@@ -20,6 +20,21 @@ server.get('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, 
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
+
+    server.append('Show', function (req, res, next) {
+        const CatalogMgr = require("dw/catalog/CatalogMgr");
+        const ProductSearchModel = require("dw/catalog/ProductSearchModel");
+        var viewData = res.getViewData();
+        let sortingRule = CatalogMgr.getSortingRule("price-low-to-high");
+        let categoryID = showProductPageHelperResult.product.categoryID.ID;
+        let psm = new ProductSearchModel();
+        psm.setCategoryID(categoryID);
+        psm.setSortingRule(sortingRule);
+        let sortedCollection = psm.category.products;
+
+        res.setViewData({ viewData, sortedCollection });
+        next();
+    })
     if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
         res.setStatusCode(404);
         res.render('error/notFound');
@@ -201,7 +216,8 @@ server.get('ShowBonusProducts', function (req, res, next) {
                 product = ProductFactory.get({
                     pid: param,
                     pview: 'bonus',
-                    duuid: duuid });
+                    duuid: duuid
+                });
                 return product;
             });
         } else {
