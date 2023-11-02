@@ -115,9 +115,9 @@ server.post('AddProduct', function (req, res, next) {
 
         var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
     }
+
     // add product email
     var addData = res.getViewData();
-
     let i = 0;
 
     function getIndex() {
@@ -129,7 +129,6 @@ server.post('AddProduct', function (req, res, next) {
         return i;
     }
     getIndex()
-
 
     var customerInfo = req.currentCustomer.profile;
     var email = customerInfo.email;
@@ -158,8 +157,8 @@ server.post('AddProduct', function (req, res, next) {
 
     server.append('AddProduct', function (req, res, next) {
         var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
-        var viewData = res.getViewData();
 
+        var viewData = res.getViewData();
         var url = URLUtils.https('Cart-Show');
         var objectForEmail = {
             firstName,
@@ -181,7 +180,6 @@ server.post('AddProduct', function (req, res, next) {
         };
 
         emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
-
         res.setViewData(viewData);
         next();
     })
@@ -196,6 +194,7 @@ server.post('AddProduct', function (req, res, next) {
         pliUUID: result.uuid,
         minicartCountOfItems: Resource.msgf('minicart.count', 'common', null, quantityTotal)
     });
+
     next();
 });
 
@@ -255,6 +254,7 @@ server.get('Get', function (req, res, next) {
     }
 
     var basketModel = new CartModel(currentBasket);
+
     res.json(basketModel);
     next();
 });
