@@ -160,7 +160,17 @@ server.get(
             reportingURLs = reportingUrlsHelper.getBasketOpenReportingURLs(currentBasket);
         }
 
-        res.setViewData({ reportingURLs: reportingURLs });
+        var rateLimiter = dw.system.Site.getCurrent().getPreferences().custom.rateLimiterThreshold;
+        var totalGrossPrice = currentBasket.totalGrossPrice.value;
+
+
+
+        res.setViewData({ 
+            reportingURLs: reportingURLs,
+            rateLimiter,
+            totalGrossPrice
+            
+         });
 
         var basketModel = new CartModel(currentBasket);
         res.render('cart/cart', basketModel);

@@ -69,7 +69,8 @@
                     </isloop>
                     <isinclude template="cart/cartApproachingDiscount" />
                         <div class="text-left">
-                            <isif condition="${pdict.totals.grandTotal.slice('1') > 200}">
+                        <iscomment> <isif condition="${pdict.totals.grandTotal.slice('1') > 200}"> </iscomment>
+                             <isif condition="${pdict.totalGrossPrice > pdict.rateLimiter}">
                             <isinclude template="cart/cartExceed" />
                         </isif>
                         </div>
