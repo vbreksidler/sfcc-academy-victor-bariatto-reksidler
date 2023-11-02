@@ -1,5 +1,5 @@
 <body>
-    <iscomment> <h1>${Resource.msg('msg.productAdded.dear', 'cart', null)}&nbsp;${pdict.firstName}&nbsp;${pdict.lastName},</h1> </iscomment>
+    <h1>${Resource.msg('msg.productAdded.dear', 'cart', null)}&nbsp;${pdict.firstName}&nbsp;${pdict.lastName},</h1>
     
     <h4>${Resource.msg('msg.productAdded.text', 'cart', null)}</h4>
 

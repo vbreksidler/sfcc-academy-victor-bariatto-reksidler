@@ -116,27 +116,58 @@ server.post('AddProduct', function (req, res, next) {
         var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
     }
     // add product email
+    var addData = res.getViewData();
+
+    let i = 0;
+
+    function getIndex() {
+        if (currentBasketPrice.value > 0) {
+            i = cartModel.items.length - 1;
+        } else {
+            i = 0;
+        }
+        return i;
+    }
+    getIndex()
+
+
+    var customerInfo = req.currentCustomer.profile;
+    var email = customerInfo.email;
+    var image = cartModel.items[i].images.small[0].absURL;
+    var productName = cartModel.items[i].productName;
+    var firstName = customerInfo.firstName;
+    var description = currentBasket.productLineItems[i].product.pageDescription;
+    var lastName = customerInfo.lastName;
+    var currencyCode = currentBasket.currencyCode;
+    var quantity = quantity.toFixed(0)
+    var totalPrice = currentBasket.adjustedMerchandizeTotalNetPrice.value - currentBasketPrice.value;
+    var price = currencyCode + ' ' + (totalPrice / quantity).toFixed(2)
+
+    var objectForAppend = {
+        description,
+        email,
+        image,
+        productName,
+        firstName,
+        lastName,
+        price,
+        productId,
+        quantity,
+    };
+    res.setViewData({ objectForAppend });
+
     server.append('AddProduct', function (req, res, next) {
         var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
         var viewData = res.getViewData();
 
-        var productName = viewData.cart.items[0].productName;
-        var productId = viewData.cart.items[0].id;
-        // var customerInfo = req.currentCustomer.profile;
-        var email = 'vbreksidler@gmail.com';
-        var currencyCode = viewData.cart.items[0].price.sales.currency;
-        var totalPrice = viewData.cart.items[0].priceTotal.price;
-        var price = viewData.cart.items[0].price.sales.formatted;
-        var quantity = viewData.cart.numItems.toFixed(0);
-        var image = viewData.cart.items[0].images.small[0].absURL;
-
         var url = URLUtils.https('Cart-Show');
         var objectForEmail = {
+            firstName,
+            lastName,
             productName,
+            description,
             price,
             image,
-            // firstName: customerInfo.firstName,
-            // lastName: customerInfo.lastName,
             productId,
             quantity,
             url: url
@@ -151,50 +182,9 @@ server.post('AddProduct', function (req, res, next) {
 
         emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
 
-        res.json({
-            productName: productName,
-            productId: productId,
-            email: email,
-            currencyCode: currencyCode,
-            totalPrice: totalPrice,
-            price: price,
-            url: url,
-            objectForEmail: objectForEmail,
-            emailObj: emailObj
-        });
-
         res.setViewData(viewData);
         next();
     })
-    // var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
-
-    // var productName = getCurrentOrNewBasket.allLineItems[0].productName;
-    // var customerInfo = req.currentCustomer.profile;
-    // var email = customerInfo.email;
-    // var quantity = quantity.toFixed(0);
-    // var currencyCode = currentBasket.currencyCode;
-    // var totalPrice = currentBasket.adjustedMerchandizeTotalNetPrice.value - currentBasketPrice.value;
-    // var price = currencyCode + ' ' + (totalPrice / quantity).toFixed(2)
-
-    // var url = URLUtils.https('Cart-Show');
-    // var objectForEmail = {
-    //     totalPrice,
-    //     price,
-    //     firstName: customerInfo.firstName,
-    //     lastName: customerInfo.lastName,
-    //     productId,
-    //     quantity,
-    //     url: url
-    // };
-
-    // var emailObj = {
-    //     to: email,
-    //     subject: Resource.msg('subject.confimation.email', 'cart', null),
-    //     from: 'no-reply@salesforce.com',
-    //     type: emailHelpers.emailTypes.productAdded
-    // };
-
-    // emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
 
     res.json({
         reportingURL: reportingURL,
