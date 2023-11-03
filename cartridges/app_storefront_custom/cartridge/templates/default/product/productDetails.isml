@@ -134,12 +134,12 @@
         <isset name="loopState" value="{count: 1}" scope="page" />
         <isinclude template="product/components/descriptionAndDetails" />
 
-        <div class="recommendations">
-            <isloop items="${pdict.sortedCollection}" var="product" begin="0" end="3">
-                <div class="col-sm-3">
-                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'swatches', true, 'ratings', true)}" />
-                </div>
-            </isloop>
+            <div class="recommendations col-sm-3">
+                <isloop items="${pdict.products}" var="product" begin="0" end="3">
+                    <isobject object="${ProductSearchModel}" view="searchhit">
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'swatches', true, 'ratings', true)}" />
+                    </isobject>
+                </isloop>
         </div>
     </div>
 </isdecorate>

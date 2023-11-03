@@ -24,15 +24,31 @@ server.get('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, 
     server.append('Show', function (req, res, next) {
         const CatalogMgr = require("dw/catalog/CatalogMgr");
         const ProductSearchModel = require("dw/catalog/ProductSearchModel");
+        const HashMap = require("dw/util/HashMap");
+
+        let model = new HashMap();
         var viewData = res.getViewData();
         let sortingRule = CatalogMgr.getSortingRule("price-low-to-high");
-        let categoryID = showProductPageHelperResult.product.categoryID.ID;
-        let psm = new ProductSearchModel();
-        psm.setCategoryID(categoryID);
-        psm.setSortingRule(sortingRule);
-        let sortedCollection = psm.category.products;
+        model.sortingRule = sortingRule.ID;
 
-        res.setViewData({ viewData, sortedCollection });
+        let category = showProductPageHelperResult.product.categoryID.ID;
+        model.category = category;
+
+        let psm = new ProductSearchModel();
+        psm.setCategoryID(category);
+        psm.setSortingRule(sortingRule);
+        psm.search();
+
+        var hits = psm.getProductSearchHits();
+
+        let product = null;
+        let products = [];
+        while (hits.hasNext() ) {
+            product = hits.next().getProduct();
+            model.product = product;
+            products.push(product)
+        }
+        res.setViewData({ viewData, products });
         next();
     })
     if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
