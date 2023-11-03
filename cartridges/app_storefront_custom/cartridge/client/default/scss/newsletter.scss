@@ -1,0 +1,18 @@
+@import "variables";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "components/formFields";
+@import "components/toastMessage";
+
+.newsletter-banner {
+    background-image: url('../images/account.jpg');
+    background-position-y: 20%;
+}
+
+.newsletter-signup-message {
+    @include toast-message();
+}
+
+.newsletter-signup-alert {
+    @include toast-alert();
+}

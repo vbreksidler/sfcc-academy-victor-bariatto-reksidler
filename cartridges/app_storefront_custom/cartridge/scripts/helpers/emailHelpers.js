@@ -44,7 +44,9 @@ module.exports = {
         passwordChanged: 3,
         orderConfirmation: 4,
         accountLocked: 5,
-        accountEdited: 6
+        accountEdited: 6,
+        //productAdded: 7,
+        newsletter:8,
     },
     validateEmail: validateEmail
 };
