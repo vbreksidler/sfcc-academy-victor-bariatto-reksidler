@@ -4723,8 +4723,9 @@
                 <type>int</type>
                 <mandatory-flag>false</mandatory-flag>
                 <externally-managed-flag>false</externally-managed-flag>
+                <unit xml:lang="x-default">200</unit>
                 <min-value>0.0</min-value>
-                <default-value>5</default-value>
+                <default-value>200</default-value>
             </attribute-definition>
             <attribute-definition attribute-id="sfraEnableOverlayApplePay">
                 <display-name xml:lang="x-default">SFRA - Enable Apple Pay</display-name>
@@ -4941,6 +4942,7 @@
                 <attribute attribute-id="countryCode"/>
                 <attribute attribute-id="customerServiceEmail"/>
                 <attribute attribute-id="mapAPI"/>
+                <attribute attribute-id="rateLimiterThreshold"/>
             </attribute-group>
             <attribute-group group-id="SFRA Unified Feature Cartridge">
                 <display-name xml:lang="x-default">SFRA Unified Feature Cartridge</display-name>
@@ -5190,5 +5192,14 @@
     </type-extension>
 
     <type-extension type-id="TrackingRef"/>
+
+    <custom-type type-id="NewsletterSubscription">
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="email">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+    </custom-type>
 
 </metadata>
