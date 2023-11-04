@@ -3,5 +3,7 @@
 
     <h4>${Resource.msg('msg.newsletter.text', 'newsletter', null)}</h4>
 
-    <p>${Resource.msg('msg.newsletter.textCoupon', 'newsletter', null)}${pdict.couponCode}</p>
+    <hp>${Resource.msg('msg.newsletter.nocouponsavaible', 'newsletter', null)}</hp>
+
+
 </body>
