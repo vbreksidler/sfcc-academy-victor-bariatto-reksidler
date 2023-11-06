@@ -16,14 +16,15 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var Resource = require('dw/web/Resource');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
     var emailHelper = require('*/cartridge/scripts/helpers/emailHelpers');
+    var confirmSubscriptionTracking = require('*/cartridge/scripts/middleware/confirmSubscriptionTracking');
 
     var myForm = req.form;
     var isValidEmailid = emailHelper.validateEmail(myForm.newsletterEmail);
     if (isValidEmailid) {
         var newsletterDetails = [myForm.newsletterFirstName, myForm.newsletterLastName, myForm.newsletterEmail];
         hooksHelper('app.newsletter.subscribe', 'subscribe', newsletterDetails, function () { });
-
-        server.append('Subscribe', function (req, res, next) {
+        
+        server.append('Subscribe', confirmSubscriptionTracking.confirmSubscription, function (req, res, next) {
             var CouponMgr = require('dw/campaign/CouponMgr');
             var fromEmail = dw.system.Site.getCurrent().getPreferences().custom.customerServiceEmail;
             var CustomObjectMgr = require('dw/object/CustomObjectMgr');
