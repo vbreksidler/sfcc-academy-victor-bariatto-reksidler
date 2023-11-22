@@ -5,7 +5,7 @@
 
 # In each Pull Request have the required task, with its solution.
 
-#Task 1:
+# Task 1:
 
 Effort: Easy
 Deadline: 4h
