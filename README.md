@@ -7,7 +7,7 @@
 
 # Task 1:
 
-https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/1
+Click to access the PR : https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/1
 
 Effort: Easy
 Deadline: 4h
@@ -23,7 +23,7 @@ Modify the product tile for products that have a sale price to show a custom mes
 
 # Task 2:
 
-https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/2
+Click to access the PR : https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/2
 
 Effort: Easy-Medium
 Deadline: 6h
@@ -37,7 +37,7 @@ Create a new template to be used in PDP that displays 4 products which belong to
 
 # Task 3:
 
-https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/4
+Click to access the PR : https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/4
 
 Effort: Easy
 Deadline: 4h
@@ -59,7 +59,7 @@ The displayed image must have a yellow-like background to look like a warning
 
 # Task 4:
 
-https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/5
+Click to access the PR : https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/5
 
 Effort: Medium
 Deadline: 6h
@@ -77,7 +77,7 @@ If you modify or create a site preference, you must update the corresponding met
 
 # Task 5:
 
-https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/6
+Click to access the PR : https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/pull/6
 
 Effort: Hard
 Deadline: 16h
