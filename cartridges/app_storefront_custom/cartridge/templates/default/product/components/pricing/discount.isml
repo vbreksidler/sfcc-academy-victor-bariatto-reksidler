@@ -1,0 +1,3 @@
+<!-- template to calculate the discount percent off -->
+
+${(((product.price.list.value - product.price.sales.value) / product.price.list.value) * 100).toFixed(0) + '%'}

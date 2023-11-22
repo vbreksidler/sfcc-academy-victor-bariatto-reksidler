@@ -30,6 +30,16 @@
             <span class="value" content="${price.decimalPrice}">
         </isif>
         <isinclude template="/product/components/pricing/formatted" />
-        </span>
     </span>
 </span>
+
+<div class="price">
+    <isif condition="${finalOrigPrice.list !== null}">
+        <isset name="price" value="${price}" scope="page" />
+        <span class="bestDeal">
+            ${Resource.msg('label.price.bestdeal', 'pricing', null)}
+            <isinclude template="/product/components/pricing/discount" />
+            ${Resource.msg('label.price.off', 'pricing', null)}
+        </span>
+    </isif>
+</div>

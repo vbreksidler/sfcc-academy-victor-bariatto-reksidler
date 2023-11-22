@@ -3,6 +3,11 @@
 .price {
     color: $grey7;
 
+    .bestDeal {
+        font-weight: bolder;
+        color: #CC0022;
+    }
+
     .strike-through {
         text-decoration: line-through;
         color: $grey4;

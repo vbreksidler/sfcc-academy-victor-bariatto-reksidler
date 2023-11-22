@@ -28,7 +28,9 @@ function toPriceModel(price) {
  * @classdesc Default price class
  * @param {dw.value.Money} salesPrice - Sales price
  * @param {dw.value.Money} listPrice - List price
- */
+ *
+*/
+
 function DefaultPrice(salesPrice, listPrice) {
     this.sales = toPriceModel(salesPrice);
     this.list = listPrice ? toPriceModel(listPrice) : null;
