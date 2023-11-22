@@ -18,6 +18,9 @@ Objective:
 
 Modify the product tile for products that have a sale price to show a custom message (“Best Deal”). Also, calculate the percentage of discount between the standard price and the sale price and display it.
 
+![image](https://github.com/vbreksidler/sfcc-academy-victor-bariatto-reksidler/assets/94481634/b71ba0ba-cfeb-4d26-8740-46a3d47d8f83)
+
+
 # Task 2:
 
 Effort: Easy-Medium
