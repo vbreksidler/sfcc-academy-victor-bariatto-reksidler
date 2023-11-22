@@ -14,8 +14,8 @@ Difficulties/learning points:
 ISML templates
 Resource.msgf
 Find and update .isml template which is responsible for PLP (product list page)
-Objective:
 
+Objective:
 Modify the product tile for products that have a sale price to show a custom message (“Best Deal”). Also, calculate the percentage of discount between the standard price and the sale price and display it.
 
 
@@ -27,11 +27,9 @@ Difficulties/learning points:
 
 Use dw.catalog.ProductSearchModel() to retrieve and sort products from the category
 Use isloop tag to iterate products inside .isml template
+
 Objective:
-
-Create a new template to be used in PDP that displays 4 products which belong to the same primary category as the current product and are sorted from 
-
-the lowest price to the highest.
+Create a new template to be used in PDP that displays 4 products which belong to the same primary category as the current product and are sorted from the lowest price to the highest.
 
 # Task 3:
 
@@ -44,8 +42,8 @@ Template Include
 Controllers Include
 Extend Controllers
 Get info from Basket
-Objective:
 
+Objective:
 Display a message on the cart page if the customer has over 200 dollars in the cart.
 
 Restrictions:
@@ -61,8 +59,8 @@ Difficulties/learning points:
 
 Use the Email model to send an email to the user
 Create an ISML template in templates/default/mail for visualizing information.
-Objective:
 
+Objective:
 Modify the Cart functionality so that each time a user adds an item to the cart, an email message is sent to the user's email address with information regarding the item.
 
 Restrictions:
@@ -83,8 +81,8 @@ Coupons
 Templates
 Forms
 Custom Objects
-Objective:
 
+Objective:
 Create a form for a Newsletter. Create a campaign based on coupons (type: System-generated codes coupons) that offers $20 off to each order. 
 
 Each time a user subscribes to the newsletter and his email is saved in the CO, assign a new coupon code to him and save it in the CO. 
