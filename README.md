@@ -68,7 +68,7 @@ Restrictions:
 
 If you modify or create a site preference, you must update the corresponding metadata file in the repo.
 
-#Task 5:
+# Task 5:
 
 Effort: Hard
 Deadline: 16h
