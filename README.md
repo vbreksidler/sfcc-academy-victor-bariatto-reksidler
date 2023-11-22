@@ -1,87 +1,97 @@
 # SFRA Training Base Repo
 =================
 
+# This project was an academic experience, where real tasks were carried out, with everyday problems at the SalesForce company.
 
-# Requirements
-------------
+# In each Pull Request have the required task, with its solution.
 
-1. NodeJS version 8.x.x (to install and manage NodeJS see https://github.com/coreybutler/nvm-windows for Windows or https://github.com/creationix/nvm for MacOS/Linux)
-2. Yarn (install it globally with `npm install --global yarn`)
+#Task 1:
 
+Effort: Easy
+Deadline: 4h
+Difficulties/learning points:
 
-# Getting Started
----------------
+ISML templates
+Resource.msgf
+Find and update .isml template which is responsible for PLP (product list page)
+Objective:
 
-1. Clone this repository to your local machine and follow instructions here to configure it properly: 
-https://learninghub.osf.digital/mod/page/view.php?id=1792
-3. Run `yarn install` to install all of the local dependancies
-4. Run `yarn run webpack:dev` to start watching for file changes and compile JS and SCSS files when that happens
-5. Run `yarn run lint` to run all the code linters or run:
-    * `yarn run lint:js-server` to run only the server side JS linter
-    * `yarn run lint:js-client` to run only the client side JS linter
-    * `yarn run lint:scss` to run only the SCSS linter
+Modify the product tile for products that have a sale price to show a custom message (“Best Deal”). Also, calculate the percentage of discount between the standard price and the sale price and display it.
 
-5. Create dw.json file in the root of the project:
-{
-    "hostname": "your-sandbox-hostname.demandware.net",
-    "username": "yourlogin",
-    "password": "yourpwd",
-    "code-version": "version_to_upload_to"
-}
+# Task 2:
 
-# Uploading your code
-Install the Prophet extension into Visual Studio Code. It requires a valid dw.json file at the root that is configured for the sandbox to upload.
+Effort: Easy-Medium
+Deadline: 6h
+Difficulties/learning points:
 
-# Debugging
-Create a launch.json file inside of a hidden directory named .vscode:
-```
-{
-    "configurations": [
-        {
-            "type": "prophet",
-            "request": "launch",
-            "name": "SFRA Debugger",
-            "hostname": "your-sandbox-hostname.demandware.net",
-            "username": "yourlogin",
-            "password": "yourpwd",
-            "codeversion": "version_to_upload_to",
-            "cartridgeroot": "full_path_to_local_folder",
-            "workspaceroot": "${workspaceRoot}"
-        }
-    ]
- }
-```
- 
+Use dw.catalog.ProductSearchModel() to retrieve and sort products from the category
+Use isloop tag to iterate products inside .isml template
+Objective:
 
-# Recommended tools
------------------
+Create a new template to be used in PDP that displays 4 products which belong to the same primary category as the current product and are sorted from 
 
-Visual Studio Code is recommended to be used along with the following plugins:
+the lowest price to the highest.
 
-1. [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode) - To help you detect and fix quality issues as you write code. Like a spell checker, SonarLint squiggles flaws so they can be fixed before committing code.
-2. [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - To help you easily format and prettify your code (make sure you set `"prettier.tabWidth": 4` before you start using it)
-3. [Document This](https://marketplace.visualstudio.com/items?itemName=joelday.docthis) - To help you with writing JSDoc for your code
-    * CMD + Shift + P -> Format Document
-    * Select the text you want to Prettify and CMD + Shift + P -> Format Selection
-4. [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense) - To help you autocomplete paths and filenames
-5. [vscode-icons](https://marketplace.visualstudio.com/items?itemName=robertohuertasm.vscode-icons) - To make your VSC explorer a bit nicer
+# Task 3:
 
+Effort: Easy
+Deadline: 4h
+Difficulties/learning points:
 
-Submitting a pull request
--------------------------
+Use Resource.msg in order to display the message.
+Template Include
+Controllers Include
+Extend Controllers
+Get info from Basket
+Objective:
 
-1. Create a feature branch from the develop branch (`feature/TASK-NR`)
-2. Make sure all your comits have proper commit message (`[TASK-NR] Commit description`)
-2. When creating your pull request make sure it has:
-    * A proper title (use the following naming convention `[TASK-NR] Pull request title`)
-    * A brief description of what the pull request does
-    * (optional) Screen shots
-3. Your code should pass the automation process:
-    * Lint your code: `yarn run lint` should run withouth errors
-    * Build your code: `yarn run webpack:dev` should run withouth errors
+Display a message on the cart page if the customer has over 200 dollars in the cart.
 
-# Why the code structure here is different from the official one at https://github.com/SalesforceCommerceCloud
-1. Our cartridges structure make it easier to work with webpack
-2. Our cartridges structure is easier to organize and makes more sense for SG developers
-3. Github structure forces that each dev clones code in exactly the same way, same structure, same folders or it might break webpack
-4. Github structure is prone to dependency inconsistencies since each cartridge has its own repo and package.json
+Restrictions:
+
+Retrieve the threshold value from Site Preferences
+The displayed image must have a yellow-like background to look like a warning
+
+# Task 4:
+
+Effort: Medium
+Deadline: 6h
+Difficulties/learning points:
+
+Use the Email model to send an email to the user
+Create an ISML template in templates/default/mail for visualizing information.
+Objective:
+
+Modify the Cart functionality so that each time a user adds an item to the cart, an email message is sent to the user's email address with information regarding the item.
+
+Restrictions:
+
+If you modify or create a site preference, you must update the corresponding metadata file in the repo.
+
+#Task 5:
+
+Effort: Hard
+Deadline: 16h
+Difficulties/learning points:
+
+Email
+Transactions
+Campaigns
+Promotions
+Coupons
+Templates
+Forms
+Custom Objects
+Objective:
+
+Create a form for a Newsletter. Create a campaign based on coupons (type: System-generated codes coupons) that offers $20 off to each order. 
+
+Each time a user subscribes to the newsletter and his email is saved in the CO, assign a new coupon code to him and save it in the CO. 
+
+Also send an email to the customer with the coupon code. 
+
+Restrictions:
+
+It must not be allowed for the same email be used twice. 
+If no coupon code is available anymore, send an email apologizing to the user
+If you modify or create a site preference or custom object, you must update the corresponding metadata file in the repo.
