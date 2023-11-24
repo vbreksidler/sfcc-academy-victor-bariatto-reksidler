@@ -1,0 +1,7 @@
+<body>
+    <h1>${Resource.msg('msg.newsletter.dear', 'newsletter', null)}&nbsp;${pdict.firstName}&nbsp;${pdict.lastName}${Resource.msg('msg.newsletter.dearText', 'newsletter', null)}</h1>
+
+    <h4>${Resource.msg('msg.newsletter.text', 'newsletter', null)}</h4>
+
+    <p>${Resource.msg('msg.newsletter.textCoupon', 'newsletter', null)}${pdict.couponCode}</p>
+</body>
