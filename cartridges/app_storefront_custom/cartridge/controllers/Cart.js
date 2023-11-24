@@ -32,6 +32,7 @@ server.post('AddProduct', function (req, res, next) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var currentBasketPrice = currentBasket.merchandizeTotalNetPrice;
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var productId = req.form.pid;
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
@@ -82,38 +83,106 @@ server.post('AddProduct', function (req, res, next) {
                 basketCalculationHelpers.calculateTotals(currentBasket);
             }
         });
+
+        var quantityTotal = ProductLineItemsModel.getTotalQuantity(currentBasket.productLineItems);
+        var cartModel = new CartModel(currentBasket);
+
+        var urlObject = {
+            url: URLUtils.url('Cart-ChooseBonusProducts').toString(),
+            configureProductstUrl: URLUtils.url('Product-ShowBonusProducts').toString(),
+            addToCartUrl: URLUtils.url('Cart-AddBonusProducts').toString()
+        };
+
+        var newBonusDiscountLineItem =
+            cartHelper.getNewBonusDiscountLineItem(
+                currentBasket,
+                previousBonusDiscountLineItems,
+                urlObject,
+                result.uuid
+            );
+        if (newBonusDiscountLineItem) {
+            var allLineItems = currentBasket.allProductLineItems;
+            var collections = require('*/cartridge/scripts/util/collections');
+            collections.forEach(allLineItems, function (pli) {
+                if (pli.UUID === result.uuid) {
+                    Transaction.wrap(function () {
+                        pli.custom.bonusProductLineItemUUID = 'bonus'; // eslint-disable-line no-param-reassign
+                        pli.custom.preOrderUUID = pli.UUID; // eslint-disable-line no-param-reassign
+                    });
+                }
+            });
+        }
+
+        var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
     }
 
-    var quantityTotal = ProductLineItemsModel.getTotalQuantity(currentBasket.productLineItems);
-    var cartModel = new CartModel(currentBasket);
+    // add product email
+    var addData = res.getViewData();
+    let i = 0;
 
-    var urlObject = {
-        url: URLUtils.url('Cart-ChooseBonusProducts').toString(),
-        configureProductstUrl: URLUtils.url('Product-ShowBonusProducts').toString(),
-        addToCartUrl: URLUtils.url('Cart-AddBonusProducts').toString()
+    function getIndex() {
+        if (currentBasketPrice.value > 0) {
+            i = cartModel.items.length - 1;
+        } else {
+            i = 0;
+        }
+        return i;
+    }
+    getIndex()
+
+    var customerInfo = req.currentCustomer.profile;
+    var email = customerInfo.email;
+    var image = cartModel.items[i].images.small[0].absURL;
+    var productName = cartModel.items[i].productName;
+    var firstName = customerInfo.firstName;
+    var description = currentBasket.productLineItems[i].product.pageDescription;
+    var lastName = customerInfo.lastName;
+    var currencyCode = currentBasket.currencyCode;
+    var quantity = quantity.toFixed(0)
+    var totalPrice = currentBasket.adjustedMerchandizeTotalNetPrice.value - currentBasketPrice.value;
+    var price = currencyCode + ' ' + (totalPrice / quantity).toFixed(2)
+
+    var objectForAppend = {
+        description,
+        email,
+        image,
+        productName,
+        firstName,
+        lastName,
+        price,
+        productId,
+        quantity,
     };
+    res.setViewData({ objectForAppend });
 
-    var newBonusDiscountLineItem =
-        cartHelper.getNewBonusDiscountLineItem(
-            currentBasket,
-            previousBonusDiscountLineItems,
-            urlObject,
-            result.uuid
-        );
-    if (newBonusDiscountLineItem) {
-        var allLineItems = currentBasket.allProductLineItems;
-        var collections = require('*/cartridge/scripts/util/collections');
-        collections.forEach(allLineItems, function (pli) {
-            if (pli.UUID === result.uuid) {
-                Transaction.wrap(function () {
-                    pli.custom.bonusProductLineItemUUID = 'bonus'; // eslint-disable-line no-param-reassign
-                    pli.custom.preOrderUUID = pli.UUID; // eslint-disable-line no-param-reassign
-                });
-            }
-        });
-    }
+    server.append('AddProduct', function (req, res, next) {
+        var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers')
 
-    var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
+        var viewData = res.getViewData();
+        var url = URLUtils.https('Cart-Show');
+        var objectForEmail = {
+            firstName,
+            lastName,
+            productName,
+            description,
+            price,
+            image,
+            productId,
+            quantity,
+            url: url
+        };
+
+        var emailObj = {
+            to: email,
+            subject: Resource.msg('subject.confimation.email', 'cart', null),
+            from: 'no-reply@salesforce.com',
+            type: emailHelpers.emailTypes.productAdded
+        };
+
+        emailHelpers.sendEmail(emailObj, '/mail/productAddedToCart', objectForEmail);
+        res.setViewData(viewData);
+        next();
+    })
 
     res.json({
         reportingURL: reportingURL,
@@ -174,7 +243,6 @@ server.get('Get', function (req, res, next) {
     var CartModel = require('*/cartridge/models/cart');
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-
     var currentBasket = BasketMgr.getCurrentBasket();
 
     if (currentBasket) {
