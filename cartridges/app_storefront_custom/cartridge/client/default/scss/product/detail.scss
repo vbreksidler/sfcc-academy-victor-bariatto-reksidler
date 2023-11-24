@@ -19,7 +19,7 @@
     }
 }
 
-label.color ~ a:hover {
+label.color~a:hover {
     // Removes weird dash after the swatch circle on hover.
     text-decoration: none;
 }
@@ -36,7 +36,7 @@ label.color ~ a:hover {
             font-family: 'Dosis', sans-serif;
         }
 
-        > div:last-child {
+        >div:last-child {
             margin-bottom: 1em;
         }
     }
@@ -109,9 +109,12 @@ label.availability {
 
     @include media-breakpoint-only(xs) {
         background-color: $white;
-        margin-top: -1.875em; /* 30/16 */
-        margin-right: -0.9375em; /* 15/16 */
-        padding: 0.1875em; /* 3/16 */
+        margin-top: -1.875em;
+        /* 30/16 */
+        margin-right: -0.9375em;
+        /* 15/16 */
+        padding: 0.1875em;
+        /* 3/16 */
     }
 }
 
